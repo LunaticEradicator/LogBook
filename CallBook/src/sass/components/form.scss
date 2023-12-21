@@ -1,0 +1,95 @@
+@use "../utils/" as ut;
+
+h2 {
+  text-align: center;
+  font-size: 2.3rem;
+  margin: 20px 0px;
+  @include ut.breakpoint(large) {
+    font-size: 2rem;
+  }
+}
+
+.main__userInput {
+  box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.164);
+  padding: 15px;
+  margin: 10px;
+  border-radius: 10px;
+}
+.callBook {
+  display: grid;
+  // padding: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  gap: 10px;
+
+  @include ut.breakpoint(medium) {
+    padding: 0px;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  }
+
+  > div {
+    display: flex;
+    flex-direction: column;
+  }
+  input {
+    margin: 2px;
+    font-size: 1.3rem;
+    border: 2px solid black;
+    border-radius: 5px;
+    @include ut.breakpoint(large) {
+      font-size: 1rem;
+    }
+  }
+  label {
+    margin: 2px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border-radius: 5px;
+    @include ut.breakpoint(large) {
+      font-size: 1rem;
+    }
+  }
+  &__buttonDiv {
+    padding-top: 20px;
+    text-align: center;
+    &__button {
+      padding: 5px 15px;
+      font-size: 1.3rem;
+      border: 2px solid rgb(0, 0, 0);
+      background-color: rgb(255, 255, 255);
+      border-radius: 5px;
+      font-weight: bold;
+      cursor: pointer;
+      font-family: "Kalnia", serif;
+      transition: all 0.6s;
+      &:hover {
+        transform: scale(1.1);
+        background-color: rgb(0, 0, 0);
+        color: white;
+      }
+    }
+  }
+}
+
+.required {
+  color: red;
+}
+
+input:not(:focus):not(:placeholder-shown):invalid ~ .error-message {
+  // display: inherit;
+  visibility: visible;
+}
+
+input:not(:focus):not(:placeholder-shown):invalid {
+  background: #fa56561c;
+  border: 2px solid rgba(231, 53, 53, 0.808);
+  border-radius: 5px;
+  // box-shadow: 0px 0px 5px 1px rgb(253, 3, 3);
+}
+.error-message {
+  // display: none;
+  visibility: hidden;
+  font-weight: bold;
+  color: red;
+  font-size: 0.7rem;
+  margin: 10px 0;
+}
