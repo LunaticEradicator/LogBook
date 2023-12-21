@@ -1,5 +1,5 @@
 import axios from "axios";
-import { BASE_URL } from "../constants";
+import { LOG_URL } from "../constants";
 import { toast } from "react-toastify";
 
 export default function UserForm({
@@ -33,7 +33,7 @@ export default function UserForm({
     } else {
       try {
         // creating new user callSign
-        const res = await axios.post(`${BASE_URL}/log`, {
+        const res = await axios.post(LOG_URL, {
           callSign: userData.callSign,
           userName: userData.name,
           frequency: userData.frequency,

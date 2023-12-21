@@ -1,7 +1,7 @@
 import "../sass/components/table.scss";
 import { FaTrash } from "react-icons/fa";
 import axios from "axios";
-import { BASE_URL } from "../constants";
+import { LOG_URL } from "../constants";
 
 export default function Table({ callSign, userData, setCallSign }: any) {
   // filter out the same callSign
@@ -10,7 +10,7 @@ export default function Table({ callSign, userData, setCallSign }: any) {
   });
 
   const handleDelete = async (id: any) => {
-    await axios.delete(`${BASE_URL}/log/${id}`);
+    await axios.delete(`${LOG_URL}/${id}`);
     setCallSign((prevExpenses: any) =>
       prevExpenses?.filter((item: any) => {
         return item?._id !== id;

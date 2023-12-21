@@ -1,7 +1,7 @@
 import "../sass/components/form.scss";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { BASE_URL } from "../constants";
+import { LOG_URL } from "../constants";
 
 import UserForm from "../components/UserForm";
 import Table from "../components/Table";
@@ -32,7 +32,7 @@ export default function Form() {
   const [callSign, setCallSign] = useState([]);
   useEffect(() => {
     async function fetchApi() {
-      const res = await axios.get(`${BASE_URL}/log`);
+      const res = await axios.get(LOG_URL);
       setCallSign(res?.data);
     }
     fetchApi();

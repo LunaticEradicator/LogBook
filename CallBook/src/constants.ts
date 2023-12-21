@@ -1,3 +1,4 @@
-const BASE_URL = "http://localhost:8080/api";
+const BASE_URL = "/";
+const LOG_URL = "/api/log";
 
-export { BASE_URL };
+export { BASE_URL, LOG_URL };
