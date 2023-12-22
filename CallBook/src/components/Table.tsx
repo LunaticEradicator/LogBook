@@ -3,15 +3,10 @@ import { FaTrash } from "react-icons/fa";
 import axios from "axios";
 import { LOG_URL } from "../constants";
 
-export default function Table({ callSign, userData, setCallSign }: any) {
-  // filter out the same callSign
-  const checkCallSign = callSign.filter((call: any) => {
-    return call.callSign === userData.callSign;
-  });
-
+export default function Table({ checkCallSign, setLogDetails }: any) {
   const handleDelete = async (id: any) => {
     await axios.delete(`${LOG_URL}/${id}`);
-    setCallSign((prevExpenses: any) =>
+    setLogDetails((prevExpenses: any) =>
       prevExpenses?.filter((item: any) => {
         return item?._id !== id;
       })
@@ -37,7 +32,7 @@ export default function Table({ callSign, userData, setCallSign }: any) {
           </tr>
         </thead>
         <tbody>
-          {checkCallSign?.map((data: any) => {
+          {checkCallSign.map((data: any) => {
             return (
               <tr key={data._id}>
                 <td data-label="Name">{data?.userName}</td>

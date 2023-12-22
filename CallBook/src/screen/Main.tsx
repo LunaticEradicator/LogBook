@@ -7,15 +7,36 @@ import UserForm from "../components/UserForm";
 import Table from "../components/Table";
 
 export default function Form() {
-  // user Input
-  const currentDate =
-    new Date().getFullYear() +
-    "-" +
-    (new Date().getMonth() + 1) +
-    "-" +
-    new Date().getDate();
+  const [logDetails, setLogDetails] = useState<any[]>([]);
 
-  const currentTime = new Date().getHours() + ":" + new Date().getMinutes();
+  // autofill html date tag
+  function getCurrentDate() {
+    // user Input
+    const currentDate =
+      new Date().getFullYear() +
+      "-" +
+      (new Date().getMonth() + 1) +
+      "-" +
+      new Date().getDate();
+    return currentDate;
+  }
+
+  // autofill html time tag
+  function getCurrentTime() {
+    const currentMinutes = new Date().getMinutes();
+    // const sike = "0";
+
+    // convert [0-9] to [00-09]
+    // to match html clock
+    const currentTime =
+      new Date().getHours() +
+      ":" +
+      (currentMinutes.toString().length === 1
+        ? "0" + currentMinutes
+        : currentMinutes);
+
+    return currentTime;
+  }
 
   const [userData, setUserData] = useState({
     callSign: "",
@@ -25,15 +46,26 @@ export default function Form() {
     // mode: "",
     reportSent: "",
     reportReceived: "",
-    date: currentDate,
-    time: currentTime,
+    date: getCurrentDate(),
+    time: getCurrentTime(),
   });
 
-  const [callSign, setCallSign] = useState([]);
+  // filter out the same callSign
+  const checkCallSign = logDetails.filter((call: any) => {
+    return call.callSign === userData.callSign.toLowerCase();
+  });
+
+  // fill out the name automatically
+  useEffect(() => {
+    if (checkCallSign.length !== 0) {
+      userData.name = checkCallSign[0]?.userName;
+    }
+  }, [checkCallSign, userData]);
+
   useEffect(() => {
     async function fetchApi() {
       const res = await axios.get(LOG_URL);
-      setCallSign(res?.data);
+      setLogDetails(res?.data);
     }
     fetchApi();
   }, [userData]);
@@ -45,15 +77,11 @@ export default function Form() {
         <UserForm
           userData={userData}
           setUserData={setUserData}
-          currentDate={currentDate}
-          currentTime={currentTime}
+          currentDate={getCurrentDate()}
+          currentTime={getCurrentTime()}
         />
       </div>
-      <Table
-        userData={userData}
-        callSign={callSign}
-        setCallSign={setCallSign}
-      />
+      <Table checkCallSign={checkCallSign} setLogDetails={setLogDetails} />
     </div>
   );
 }

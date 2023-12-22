@@ -33,7 +33,7 @@ export default function UserForm({
     } else {
       try {
         // creating new user callSign
-        const res = await axios.post(LOG_URL, {
+        await axios.post(LOG_URL, {
           callSign: userData.callSign,
           userName: userData.name,
           frequency: userData.frequency,
@@ -43,7 +43,7 @@ export default function UserForm({
           date: userData.date,
           time: userData.time,
         });
-        console.log(res.data);
+        // console.log(res.data);
         // clear Data after submitting
         setUserData({
           callSign: "",
@@ -62,7 +62,7 @@ export default function UserForm({
     }
   };
 
-  console.log(userData);
+  // console.log(userData);
 
   // Restrict Date Selection To current Date
   function useCurrentDate() {
@@ -97,6 +97,7 @@ export default function UserForm({
               name="callSign"
               value={userData.callSign}
               onChange={handleForm}
+              autoComplete="true"
               pattern="^[a-zA-Z0-9\/]*$"
             />
             <p className="error-message">CallSign Should be alphaNumeric</p>
@@ -109,6 +110,7 @@ export default function UserForm({
               value={userData.name}
               onChange={handleForm}
             />
+            <p className="error-message">Name</p>
           </div>
           <div className="callBook__frequency">
             <label htmlFor="frequency">

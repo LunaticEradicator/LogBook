@@ -75,21 +75,23 @@ h2 {
 }
 
 input:not(:focus):not(:placeholder-shown):invalid ~ .error-message {
-  // display: inherit;
-  visibility: visible;
+  display: inherit;
+  // visibility: visible;
 }
 
 input:not(:focus):not(:placeholder-shown):invalid {
+  // display: inherit;
   background: #fa56561c;
   border: 2px solid rgba(231, 53, 53, 0.808);
   border-radius: 5px;
   // box-shadow: 0px 0px 5px 1px rgb(253, 3, 3);
 }
 .error-message {
-  // display: none;
-  visibility: hidden;
+  display: none;
+  // visibility: hidden;
   font-weight: bold;
   color: red;
   font-size: 0.7rem;
-  margin: 10px 0;
+  margin: 0;
+  margin-top: 10px;
 }
