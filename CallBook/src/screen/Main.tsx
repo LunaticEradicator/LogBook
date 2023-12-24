@@ -52,8 +52,13 @@ export default function Form() {
 
   // filter out the same callSign
   const checkCallSign = logDetails.filter((call: any) => {
-    return call.callSign === userData.callSign.toLowerCase();
+    // console.log(call);
+    return call.callSign.toLowerCase() === userData.callSign.toLowerCase();
   });
+
+  // console.log(checkCallSign);
+  // console.log(logDetails);
+  // console.log(userData);
 
   // fill out the name automatically
   useEffect(() => {
