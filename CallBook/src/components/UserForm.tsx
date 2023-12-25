@@ -52,8 +52,8 @@ export default function UserForm({
           band: "",
           reportSent: "",
           reportReceived: "",
-          date: "",
-          time: "",
+          date: currentDate,
+          time: currentTime,
         });
         toast.success("CallSign Created Successfully");
       } catch (error: any) {
@@ -62,27 +62,27 @@ export default function UserForm({
     }
   };
 
-  // console.log(userData);
+  console.log(userData);
 
   // Restrict Date Selection To current Date
-  function useCurrentDate() {
-    let currentDate;
+  // function useCurrentDate() {
+  //   let currentDate;
 
-    const newDate = new Date();
-    const currentDay = newDate.getDate();
-    const currentMonth = newDate.getMonth() + 1;
-    const currentYear = newDate.getFullYear();
+  //   const newDate = new Date();
+  //   const currentDay = newDate.getDate();
+  //   const currentMonth = newDate.getMonth() + 1;
+  //   const currentYear = newDate.getFullYear();
 
-    if (currentDay < 10) {
-      currentDate = `${currentYear}0${currentMonth}-0${currentDay}`;
-    }
-    if (currentMonth < 10) {
-      currentDate = `${currentYear}-0${currentMonth}-${currentDay}`;
-    } else {
-      currentDate = `${currentYear}-${currentMonth}-${currentDay}`;
-    }
-    return currentDate;
-  }
+  //   if (currentDay < 10) {
+  //     currentDate = `${currentYear}0${currentMonth}-0${currentDay}`;
+  //   }
+  //   if (currentMonth < 10) {
+  //     currentDate = `${currentYear}-0${currentMonth}-${currentDay}`;
+  //   } else {
+  //     currentDate = `${currentYear}-${currentMonth}-${currentDay}`;
+  //   }
+  //   return currentDate;
+  // }
 
   return (
     <>
@@ -180,7 +180,7 @@ export default function UserForm({
               name="date"
               value={userData?.date === "" ? currentDate : userData.date}
               onChange={handleForm}
-              max={useCurrentDate()}
+              max={currentDate} // only select date till the current day
             />
             <p className="error-message">
               Email must be a valid address, e.g me@mydomain.com|net|org|ae
