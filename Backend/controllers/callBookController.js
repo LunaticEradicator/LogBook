@@ -1,12 +1,12 @@
 import Log from "../models/Log.js";
 import asyncHandler from "../middleware/AsyncHandler.js";
 
-//? @desc   - Get all routes
+//? @desc   - Get all callBook details
 // @route  - POST/api/log
 // @access - public
 const getCallBooks = asyncHandler(async (req, res) => {
   // const { callSign } = req.body;
-  const callBook = await Log.find({});
+  const callBook = await Log.find({}).sort({ createdAt: -1 });
   if (callBook) {
     res.status(202).json(callBook);
   } else {
@@ -14,7 +14,7 @@ const getCallBooks = asyncHandler(async (req, res) => {
   }
 });
 
-//? @desc   - Create all routes
+//? @desc   - Create a new callBook
 // @route  - POST/api/log
 // @access - public
 const createCallBook = asyncHandler(async (req, res) => {
@@ -29,6 +29,17 @@ const createCallBook = asyncHandler(async (req, res) => {
     date,
     time,
   } = req.body;
+
+  const callSignExist = await Log.findOne({
+    callSign: callSign,
+    date: date,
+    time: time,
+  });
+
+  if (callSignExist) {
+    res.status(400);
+    throw new Error("CallSign already exist at the particular time and date");
+  }
 
   // creating new log data
   const newLog = await Log.create({

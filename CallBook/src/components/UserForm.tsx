@@ -57,12 +57,13 @@ export default function UserForm({
         });
         toast.success("CallSign Created Successfully");
       } catch (error: any) {
-        toast.error(error?.data?.message || error.error);
+        console.log(error?.response);
+        toast.error(error?.response?.data?.message || error.error);
       }
     }
   };
 
-  console.log(userData);
+  // console.log(userData);
 
   // Restrict Date Selection To current Date
   // function useCurrentDate() {

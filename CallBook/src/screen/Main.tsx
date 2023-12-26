@@ -24,12 +24,15 @@ export default function Form() {
   // autofill html time tag
   function getCurrentTime() {
     const currentMinutes = new Date().getMinutes();
+    const currentHours = new Date().getHours();
     // const sike = "0";
 
     // convert [0-9] to [00-09]
     // to match html clock
     const currentTime =
-      new Date().getHours() +
+      (currentHours.toString().length === 1
+        ? "0" + currentHours
+        : currentHours) +
       ":" +
       (currentMinutes.toString().length === 1
         ? "0" + currentMinutes
@@ -37,6 +40,7 @@ export default function Form() {
 
     return currentTime;
   }
+  console.log(logDetails);
 
   const [userData, setUserData] = useState({
     callSign: "",
